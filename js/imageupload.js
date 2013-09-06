@@ -43,12 +43,16 @@ $(function(){
 				imageCode = url+'\r\n';
 				break;
 		}
-		$('#Form_Body').val($('#Form_Body').val() + imageCode);
 		var editor = $('#Form_Body').get(0).editor;
-        if (editor) {
-            // Update the frame to match the contents of textarea
-            editor.updateFrame();
-        }
+		if (editor) {
+			// Update the frame to match the contents of textarea
+			editor.updateFrame();
+		}else if($('#Form_Body').data('wysihtml5')) { //check Wysihtml5
+			var wysihtml5 = $('#Form_Body').data('wysihtml5').editor;
+			wysihtml5.setValue(wysihtml5.getValue() + imageCode);
+		}else {
+			$('#Form_Body').val($('#Form_Body').val() + imageCode);
+		}
 	});
 
 	uploader.bind('UploadComplete',function(uploader,files){
