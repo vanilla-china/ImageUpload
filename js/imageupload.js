@@ -25,19 +25,21 @@ $(function(){
 	});
 
 	uploader.bind('FileUploaded',function(uploader,file,response){
-		var url = response.response;
+		var data = $.parseJSON(response.response);
+		var url = data.url;
+		var filename = data.name.substr(0, data.name.lastIndexOf('.'));
 		$('#Form_Body').focus();
 		var inputFormat = getInputFormat();
 		var imageCode;
 		switch(inputFormat) {
 			case 'Html':
-				imageCode = '<img src="'+url+'"/>\r\n';
+				imageCode = '<img src="'+url+'" alt="'+filename+'" title="'+filename+'"/>\r\n';
 				break;
 			case 'BBCode':
-				imageCode = '[img]'+url+'[/img]\r\n';
+				imageCode = '[img alt="'+filename+'" title="'+filename+'"]'+url+'[/img]\r\n';
 				break;
 			case 'Markdown':
-				imageCode = '![]('+url+')\r\n';
+				imageCode = '!['+filename+']('+url+' "'+filename+'")\r\n';
 				break;
 			default:
 				imageCode = url+'\r\n';
