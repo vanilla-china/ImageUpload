@@ -13,4 +13,5 @@ Configurations:
 $Configuration['Plugins']['UploadImage']['Multi'] = TRUE;  //whether allow multi-files selection  
 $Configuration['Plugins']['UploadImage']['MaxHeight'] = ''; 
 $Configuration['Plugins']['UploadImage']['MaxWidth'] = 650; //image height larger than 'MaxWidth' will be resized
+$Configuration['Plugins']['UploadImage']['MaxFileSize'] = '2mb';
 ```
