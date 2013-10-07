@@ -4,7 +4,7 @@ $(function(){
 		runtimes : 'html5,html4',
 		browse_button : 'btn_imageupload',
 		multi_selection:gdn.definition('ImageUpload_Multi'),
-		max_file_size : '2mb',
+		max_file_size : gdn.definition('ImageUpload_MaxFileSize'),
 		file_data_name: 'image_file',
 		url : gdn.definition('ImageUpload_Url', '/post/imageupload'),
 		// flash_swf_url : '/plugins/ImageUpload/js/plupload.flash.swf',

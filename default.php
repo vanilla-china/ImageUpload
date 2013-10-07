@@ -33,6 +33,7 @@ class ImageUploadPlugin extends Gdn_Plugin {
 		$Sender->AddDefinition('ImageUpload_Url',Url('/post/imageupload'));
 		$Sender->AddDefinition('ImageUpload_Multi',C('Plugins.UploadImage.Multi',TRUE));
 		$Sender->AddDefinition('ImageUpload_InputFormatter',C('Garden.InputFormatter', 'Html'));
+		$Sender->AddDefinition('ImageUpload_MaxFileSize', C('Plugins.UploadImage.MaxFileSize', '2mb'));
 		$Sender->AddCssFile('imageupload.css', 'plugins/ImageUpload/css');
 		$Sender->AddJsFile('plupload.full.js', 'plugins/ImageUpload');
 		$Sender->AddJsFile('imageupload.js', 'plugins/ImageUpload');
