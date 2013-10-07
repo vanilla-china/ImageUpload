@@ -3,7 +3,7 @@
 $PluginInfo['ImageUpload'] = array(
 	'Name' => 'ImageUpload',
 	'Description' => 'lightweight and simple image uploader',
-	'Version' => '1.1',
+	'Version' => '1.1.1',
 	'RequiredApplications' => array('Vanilla' => '2.0.18.4'),
 	'RequiredTheme' => FALSE,
 	'RequiredPlugins' => FALSE,
