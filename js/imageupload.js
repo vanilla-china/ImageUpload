@@ -45,15 +45,14 @@ $(function(){
 				imageCode = url+'\r\n';
 				break;
 		}
-		var editor = $('#Form_Body').get(0).editor;
-		if (editor) {
-			// Update the frame to match the contents of textarea
-			editor.updateFrame();
-		}else if($('#Form_Body').data('wysihtml5')) { //check Wysihtml5
+		
+		if($('#Form_Body').data('wysihtml5')) { //check Wysihtml5
 			var wysihtml5 = $('#Form_Body').data('wysihtml5').editor;
 			wysihtml5.setValue(wysihtml5.getValue() + imageCode);
 		}else {
 			$('#Form_Body').val($('#Form_Body').val() + imageCode);
+			var editor = $('#Form_Body').get(0).editor;
+			if(editor) editor.updateFrame();
 		}
 	});
 
@@ -62,13 +61,12 @@ $(function(){
 	});
 
 	function getInputFormat() {
-		var editor = $('#Form_Body').get(0).editor;
+		var editor = $('#Form_Body').get(0).editor || $('#Form_Body').data('wysihtml5');
 		if(editor) return 'Html';
 		var format = $('#Form_Body').attr('format');
 		if (!format) format = gdn.definition('ImageUpload_InputFormatter', 'Html');
 		if (!format) format = gdn.definition('InputFormat', 'Html');
-		if (format == 'Raw' || format == 'Wysiwyg')
-		format = 'Html';
-        return format;
+		if (format == 'Raw' || format == 'Wysiwyg') format = 'Html';
+		return format;
 	}
 });
