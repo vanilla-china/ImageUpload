@@ -43,12 +43,7 @@ class ImageUploadPlugin extends Gdn_Plugin {
 		try {
 			$UploadImage = new Gdn_UploadImage();
 			$TmpImage = $UploadImage->ValidateUpload('image_file');
-	            
-	        // Generate the target image name.
-	        $TargetImage = $UploadImage->GenerateTargetName(PATH_UPLOADS.'/imageupload', '', TRUE);
 
-	        $Props = $UploadImage->SaveImageAs($TmpImage,$TargetImage,C('Plugins.UploadImage.MaxHeight',''),C('Plugins.UploadImage.MaxWidth',650));
-	        echo json_encode(array('url'=>$Props['Url'],'name'=>$UploadImage->GetUploadedFileName()));
 			// Generate the target image name.
 			$TargetImage = $UploadImage->GenerateTargetName(PATH_UPLOADS.'/imageupload', '', TRUE);
 
