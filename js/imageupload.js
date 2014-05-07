@@ -36,7 +36,7 @@ $(function(){
 				imageCode = '<img src="'+url+'" alt="'+filename+'" title="'+filename+'"/>\r\n';
 				break;
 			case 'BBCode':
-				imageCode = '[img alt="'+filename+'" title="'+filename+'"]'+url+'[/img]\r\n';
+				imageCode = '[img]'+url+'[/img]\r\n';
 				break;
 			case 'Markdown':
 				imageCode = '!['+filename+']('+url+' "'+filename+'")\r\n';
