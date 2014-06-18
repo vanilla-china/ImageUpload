@@ -3,7 +3,7 @@
 $PluginInfo['ImageUpload'] = array(
 	'Name' => 'ImageUpload',
 	'Description' => 'lightweight and simple image uploader',
-	'Version' => '1.1.1',
+	'Version' => '1.1.2',
 	'RequiredApplications' => array('Vanilla' => '2.0.18.4'),
 	'RequiredTheme' => FALSE,
 	'RequiredPlugins' => FALSE,
@@ -12,23 +12,30 @@ $PluginInfo['ImageUpload'] = array(
 	'RegisterPermissions' => FALSE,
 	'Author' => "chuck911",
 	'AuthorEmail' => 'contact@with.cat',
-	'AuthorUrl' => 'http://vanillaforums.cn/profile/chuck911'
+	'AuthorUrl' => 'http://vanillaforums.cn/profile/chuck911',
+	'RegisterPermissions' => array('Plugins.ImageUpload.Add' => 1)
 );
 
 class ImageUploadPlugin extends Gdn_Plugin {
 
 	public function DiscussionController_BeforeBodyField_Handler($Sender)
 	{
-		echo $Sender->FetchView($this->GetView('upload_button.php'));
+		if (Gdn::Session()->CheckPermission('Plugins.ImageUpload.Add')) {
+			echo $Sender->FetchView($this->GetView('upload_button.php'));
+		}
 	}
 
 	public function PostController_BeforeBodyInput_Handler($Sender)
 	{
-		echo $Sender->FetchView($this->GetView('upload_button.php'));
+		if (Gdn::Session()->CheckPermission('Plugins.ImageUpload.Add')) {
+			echo $Sender->FetchView($this->GetView('upload_button.php'));
+		}
 	}
 
 	public function Base_Render_Before($Sender) {
 		if(!in_array(get_class($Sender), array('PostController','DiscussionController')))
+			return;
+		if (! Gdn::Session()->CheckPermission('Plugins.ImageUpload.Add'))
 			return;
 		$Sender->AddDefinition('ImageUpload_Url',Url('/post/imageupload'));
 		$Sender->AddDefinition('ImageUpload_Multi',C('Plugins.UploadImage.Multi',TRUE));
@@ -41,6 +48,9 @@ class ImageUploadPlugin extends Gdn_Plugin {
 
 	public function PostController_Imageupload_create()
 	{
+		if (! Gdn::Session()->CheckPermission('Plugins.ImageUpload.Add')) {
+			header('HTTP/1.0 401', TRUE, 401);
+		}
 		try {
 			$UploadImage = new Gdn_UploadImage();
 			$TmpImage = $UploadImage->ValidateUpload('image_file');
